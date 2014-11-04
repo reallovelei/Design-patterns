@@ -125,14 +125,13 @@ class Order {
  * 员工与公司,员工可以离开公司独立存在.
  * 雁群于大雁,大雁离开雁群也可以独立存在不会受到任何影响.
  * 电脑与配件,内存离开电脑也是正常的 该是多少G还是多少G.
- *
- *
  */
 
 class Company {
     private $_human;
-    function __construct() {
-        $this->_human = new Human();
+
+    function setHuman($human) {
+        $this->_human = $human;
     }
     //  上班
     public function run() {
@@ -141,6 +140,52 @@ class Company {
 }
 
 $obj = new Company();
+$obj->setHuman(new Human());
 $obj->run();
+
+
+
+/**
+ * 组合:比聚合关系更强的一种关联,部分的生命周期不能超越整体，或者说不能脱离整体而存在。
+ * 组合关系的"部分"是不能在整体之间进行共享的。
+ * 与聚合的相同点在于 他们都属于关联,整体与部分的关系。
+ * 不同点在于:生命周期不同,聚合是独立的。不随整体共存亡。组合相反,与整体共存亡。
+ * 话说我认为这样是一种强耦合啊,为什么还有很多设计模式说组合比继承好呢?
+ *
+ * [举例]
+ * 人用腿跑,用手拿东西,如果人挂了 他的手 和 腿也就没用了。(当然如今的科技能让刚挂的人 移植器官，这不在讨论范畴。)
+ *
+ */
+class Leg {
+    function run() {
+        echo "Use leg run ....\n";
+    }
+}
+class Handle {
+    function hold() {
+        echo "Use handle hold...\n";
+    }
+}
+class Person {
+    private $handle;
+    private $leg;
+
+    function __construct() {
+        $this->handle = new Handle();
+        $this->leg = new Leg();
+    }
+
+    function hold() {
+        $this->handle->hold();
+    }
+
+    function run() {
+        $this->leg->run();
+    }
+}
+$obj = new Person();
+$obj->run();
+$obj->hold();
+
 
  ?>
