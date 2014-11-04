@@ -31,8 +31,6 @@ class Horse extends Animal {
  * 当然你也可以选择车，那就依赖车了
  */
 class Human {
-    
-    private $_order;
     /**
      * moveOnGrassland  在草原上奔跑
      * 依赖例子使用
@@ -55,13 +53,6 @@ class Human {
     public function startWorking() {
         echo "\n start Working";
     }
-
-
-    public function setOrder(Order $order) {
-        $this->_order = $order;
-    }
-
-
 }
 $h = new Human();
 $h->moveOnGrassland(new Horse());
