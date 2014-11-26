@@ -36,3 +36,6 @@
 * 外观和中介者
 * 外观和单例
 * 外观和抽象工厂
+
+## PHP代码简单实现
+[代码链接](https://github.com/reallovelei/Design-patterns/blob/master/pattern/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/facade.php)
