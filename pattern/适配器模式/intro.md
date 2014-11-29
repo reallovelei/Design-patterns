@@ -8,9 +8,6 @@
 * **Adaptee:** 已有的接口。通常能够满足客户端的需求，但是与客户端期望的接口有一定的出入，所以需要适配器来适配。
 * **Adapter:** 实现Target接口，将Adpatee里的功能适配成Client需要的Target。
 
-### 举例
-PHP操作mysql数据库一般有mysql、mysqli、pdo3种方式。但是这3种方式的接口不一致,所以可以用适配器统一成一致的接口。
-类似的场景还有cache类 memcache,redis,apc等不同的函数统一成一致。还有日志系统由文件存储转换成db等其他的情况。
 
 
 ##认识适配器模式
@@ -20,4 +17,18 @@ PHP操作mysql数据库一般有mysql、mysqli、pdo3种方式。但是这3种�
 可以理解成Adaptee是源,要把他转换成Target。是他们之间是没有任何关联。也就是说Adaptee和Target中的方法既可以相同也可以不同。  
 极端情况下可能是完全相同的(这种时候的适配工作量较小的)。另一种极端情况下是完全不同的(这种时候适配工作量要大一些。)
 这里说的相同与否包括 方法名、参数列表、返回值 以及方法本身的功能等。
+
+### 举例
+PHP操作mysql数据库一般有mysql、mysqli、pdo3种方式。但是这3种方式的接口不一致,所以可以用适配器统一成一致的接口。
+类似的场景还有cache类 memcache,redis,apc等不同的函数统一成一致。还有日志系统由文件存储转换成db等其他的情况。
+这里用mysql链接举例.
+
+先定义出客户端期望的接口 Target
+```php
+interface IDatabase{
+    function connect($host, $user, $pwd, $dbname);
+    function query($sql);
+    function close();
+}
+```
 
