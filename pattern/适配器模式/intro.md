@@ -21,14 +21,69 @@
 ### 举例
 PHP操作mysql数据库一般有mysql、mysqli、pdo3种方式。但是这3种方式的接口不一致,所以可以用适配器统一成一致的接口。
 类似的场景还有cache类 memcache,redis,apc等不同的函数统一成一致。还有日志系统由文件存储转换成db等其他的情况。
-这里用mysql链接举例.
+这里用rango教程中的 mysql链接举例.
 
 先定义出客户端期望的接口 Target
 ```php
-interface IDatabase{
+interface IDatabase {
     function connect($host, $user, $pwd, $dbname);
     function query($sql);
     function close();
+}
+```
+
+下面就来实现约定的接口 这里实现3个Adapter 分别是Mysql/Mysqli/PDO.而Adaptee原有功能是PHP自带的所以这里就不展示了。
+当然这里到底选择哪个Adapter对象 可以结合工厂模式来创建。
+```php
+Class Mysql implements IDatabase {
+    protected $conn;
+    function connect($host, $user, $pwd, $dbname) {
+        $conn = mysql_connect($host, $user, $pwd);
+        mysql_select_db($dbname, $conn);
+        $this->conn = $conn;
+    }
+
+    function query($sql) {
+        $res = mysql_query($sql, $this->conn);
+        return $res;
+    }
+
+    function close() {
+        mysql_close($this->conn);
+    }
+}
+
+Class Mysqli implements IDatabase {
+    protected $conn;
+    function connect($host, $user, $pwd, $dbname) {
+        $conn = mysqli_connect($host, $user, $pwd, $dbname);
+        $this->conn = $conn;
+    }
+
+    function query($sql) {
+        $res = mysqli_query($this->conn, $sql);
+        return $res;
+    }
+
+    function close() {
+        mysql_close($this->conn);
+    }
+}
+
+Class PDO implements IDatabase {
+    protected $conn;
+    function connect($host, $user, $pwd, $dbname) {
+        $conn = new \PDO("mysql:host={$host};dbname={$dbname}", $user, $pwd);
+        $this->conn = $conn;
+    }
+
+    function query($sql) {
+        return $this->conn->query($sql);
+    }
+
+    function close() {
+        unset($this->conn);
+    }
 }
 ```
 
