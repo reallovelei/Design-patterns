@@ -36,8 +36,8 @@
 
 ## 思考
 1. 对设计原则的体现  
-通过新增算法可以看出策略模式很好的体现了**开闭原则**。  
-由于算法间是平等可以互相替换的，都是实现同一个接口或继承同一个父类。从而也体现了**里氏替换原则**。
+通过新增算法可以看出策略模式很好的体现了**[开闭原则](https://github.com/reallovelei/Design-patterns/blob/master/principle/%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99.md)**。  
+由于算法间是平等可以互相替换的，都是实现同一个接口或继承同一个父类。从而也体现了**[里氏替换原则](https://github.com/reallovelei/Design-patterns/blob/master/principle/%E9%87%8C%E6%B0%8F%E6%9B%BF%E6%8D%A2%E5%8E%9F%E5%88%99.md)**。
 
 
 ## 举例
