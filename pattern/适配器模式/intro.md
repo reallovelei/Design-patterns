@@ -61,7 +61,7 @@ function adapterA() {
 1. PHP操作mysql数据库一般有mysql、mysqli、pdo3种方式。但是这3种方式的接口不一致,所以可以用适配器统一成一致的接口。  
 2. 类似的场景还有cache类 memcache,redis,apc等不同的函数统一成一致。  
 3. 还有日志系统由文件存储转换成db等其他的情况。  
-这里用rango教程中的 mysql链接举例.
+这里用[rango教程](http://www.imooc.com/video/4904)中的 mysql链接举例.
 
 先定义出客户端期望的接口 Target
 ```php

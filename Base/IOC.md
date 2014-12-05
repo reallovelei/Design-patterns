@@ -14,12 +14,38 @@ IOC是一个思想，可以用不同方式来实现。主要有两种方式:
 IOC体现了好莱坞原则(不要找我们，我们找你)。第一次遇到好莱坞原则是在了解模板方法的时候，模板方法模式作为父类的模板会在需要的调用子类的方法，也就是由父类去找子类，而不是子类找父类。这也是一种反向的控制结构，通常是子类找父类，也就是说是子类调用父类的方法，因为父类根本不知道子类，而子类是知道父类的。  
 模板方法的核心是:基类(抽象类)定义了算法的骨架，而将一些步骤延迟到子类中。使得子类不改变算法的结构即可重新定义该算法的某些特定步骤。  
 现在来考虑IOC的实现机制，组件定义了整个流程框架，而其中的一些业务逻辑的实现要借助于其他业务对象的加入，它们可以通过依赖注入参与到业务流程中来。  
+
 ## 依赖注入
 **基本原则**：应该组件不应该负责查找资源或其他依赖的协作对象。配置对象的工作应该由IOC容器负责，“查找资源”的逻辑应该从应用组件的代码中抽取出来，交给IOC容器负责。  
 **依赖注入的意义**：让组件依赖于抽象，当组件要与其他对象发生依赖关系时，通过抽象来注入依赖的实际对象。  
 依赖注入实现的方式一般有如下3种：  
 1. 构造注入  
+```php
+Class Context {
+    private $_strategy;
+    funciont __construct(Strategy $strategy) {
+        $this->_strategy = $strategy;
+    }
+}
+$obj = new Context($strategy);
+```
 2. 设值注入  
+```php
+Class Context {
+    private $_strategy;
+    funciont Setter(Strategy $strategy) {
+        $this->_strategy = $strategy;
+    }
+}
+$obj = new Context();
+$obj->Setter($strategy);
+```
+
 3. 接口注入  
+```php
+Interface ICon {
+    function Setter(Strategy $strategy);
+}
+```
 
 这怎么看着和依赖倒置有点像呢？醉了 明天仔细比较一下吧。
